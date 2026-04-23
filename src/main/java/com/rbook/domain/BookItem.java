@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "book_item")
+@Table(name = "book_items")
 @Getter
 @Setter
 public class BookItem {
@@ -20,6 +20,10 @@ public class BookItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "condition_type", nullable = false, length = 20)
+    private BookCondition condition;
 
     @Column(nullable = false, precision = 10, scale = 0)
     private BigDecimal price;
