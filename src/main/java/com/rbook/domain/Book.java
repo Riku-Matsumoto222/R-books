@@ -31,7 +31,7 @@ public class Book {
     @Column(length = 100)
     private String publisher;
 
-    @Column(name = "publish_date")
+    @Column(name = "published_date")
     private LocalDate publishedDate;
 
     @Column(nullable = false, length = 2000)
@@ -46,7 +46,7 @@ public class Book {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)

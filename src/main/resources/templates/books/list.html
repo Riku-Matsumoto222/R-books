@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R書店 - 書籍一覧</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div layout:fragment="content">
+<main>
+    <h1>販売中の書籍</h1>
+    <div>
+        <div th:each="item : ${items}" class="card card-side bg-base-100 shadow-xl border mb-4">
+            <figure class="p-4">
+                <img th:src="${item.book.imageUrl ?: 'https://placehold.co/300x400?text=No+Image'}"
+                     th:alt="${item.book.title}"
+                     class="rounded-xl h-48 w-32 object-cover"
+                     th:onerror="|this.src='https://placehold.co/300x400?text=No+Image'; this.onerror=null;|">
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title" th:text="${item.book.title}">タイトル</h2>
+                <p class="text-sm text-gray-500">
+                    <span th:text="${item.book.author}">著者</span> / <span th:text="${item.book.publisher}">出版社</span>
+                </p>
+
+                <div class="card-actions">
+                    <div th:classappend="${item.condition.name() == 'NEW'} ? 'badge-primary' : 'badge-outline'"
+                         class="badge"
+                         th:text="${item.condition.label}">コンディション</div>
+                </div>
+
+                <div class="flex justify-between items-center mt-4">
+            <span class="text-xl font-bold text-primary">
+                ¥<span th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}">0</span>
+            </span>
+                    <button class="btn btn-primary btn-sm">カートに追加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(items)}">販売中の書籍はありません</div>
+</main>
+
+</div>
+</body>
+
+</html>
